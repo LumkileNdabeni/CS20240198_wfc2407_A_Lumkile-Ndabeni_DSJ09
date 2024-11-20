@@ -1,4 +1,4 @@
-import { LoyaltyUser } from '../pages/enums'
+import { LoyaltyUser } from '../pages/enums.ts'
 
 export default interface Review {
     name: string; 
