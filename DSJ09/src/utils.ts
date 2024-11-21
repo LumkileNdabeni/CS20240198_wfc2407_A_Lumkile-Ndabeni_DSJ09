@@ -1,7 +1,7 @@
 // utils.ts
 
-import { LoyaltyUser } from '../pages/enums';
-import { Review } from '../pages/interfaces';
+import { LoyaltyUser } from './enums';
+import { Review } from './interfaces';
 
 const reviewTotalDisplay = document.querySelector('#reviews') as HTMLElement;
 const returningUserDisplay = document.querySelector('#returning-user') as HTMLElement;

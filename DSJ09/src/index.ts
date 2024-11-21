@@ -6,9 +6,9 @@
 // index.ts
 
 import { showReviewTotal, populateUser, showDetails, getTopTwoReviews, makeMultiple } from './utils';
-import { Permissions, LoyaltyUser } from '../pages/enums';
-import { Review, Property } from '../pages/interfaces';
-import MainProperty from '../pages/classes';
+import { Permissions, LoyaltyUser } from './enums';
+import { Review, Property } from './interfaces';
+import MainProperty from './classes';
 
 const propertyContainer = document.querySelector('.properties') as HTMLElement;
 const reviewContainer = document.querySelector('.reviews') as HTMLElement;

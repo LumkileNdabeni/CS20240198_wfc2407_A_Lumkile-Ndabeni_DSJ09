@@ -1,5 +1,5 @@
-import { LoyaltyUser } from '../pages/enums'
-import { Price, Country } from '../pages/types'
+import { LoyaltyUser } from './enums'
+import { Price, Country } from './types'
 
 export interface Review {
     name: string; 
