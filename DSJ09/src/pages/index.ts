@@ -3,17 +3,20 @@
 // all TypeScript weakness flags.
 // : number
 
-import { showReviewTotal, populateUser, showDetails, getTopTwoReviews} from './utils'
-import { Permissions , LoyaltyUser } from '../pages/enums'
-import { Review, Property } from '../pages/interfaces'
-import MainProperty from '../pages/classes' 
-const propertyContainer = document.querySelector('.properties')
-const reviewContainer = document.querySelector('.reviews')
-const container = document.querySelector('.container')
-const button = document.querySelector('button')
-const footer = document.querySelector('.footer')
+// index.ts
 
-let isLoggedIn: boolean
+import { showReviewTotal, populateUser, showDetails, getTopTwoReviews, makeMultiple } from './utils';
+import { Permissions, LoyaltyUser } from '../pages/enums';
+import { Review, Property } from '../pages/interfaces';
+import MainProperty from '../pages/classes';
+
+const propertyContainer = document.querySelector('.properties') as HTMLElement;
+const reviewContainer = document.querySelector('.reviews') as HTMLElement;
+const container = document.querySelector('.container') as HTMLElement;
+const button = document.getElementById('get-reviews-button') as HTMLButtonElement;
+const footer = document.querySelector('.footer') as HTMLElement;
+
+let isLoggedIn: boolean;
 
 // Reviews
 const reviews: Review[] = [
@@ -35,7 +38,7 @@ const reviews: Review[] = [
         loyaltyUser: LoyaltyUser.SILVER_USER,
         date: '27-03-2021',
     },
-]
+];
 
 const you = {
     firstName: 'Bobby',
@@ -44,10 +47,10 @@ const you = {
     isReturning: true,
     age: 35,
     stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
-}
+};
 
 // Array of Properties
-const properties : Property[] = [
+const properties: Property[] = [
     {
         image: '../assets/images/colombia-property.jpg',
         title: 'Colombian Shack',
@@ -97,48 +100,62 @@ const properties : Property[] = [
             code: 45334,
             country: 'Malaysia'
         },
-        contact: [ +60349822083, 'lee34@gmail.com'],
+        contact: [+60349822083, 'lee34@gmail.com'],
         isAvailable: false
     }
-]
+];
 
 // Functions
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser)
-
-populateUser(you.isReturning, you.firstName)
+showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
+populateUser(you.isReturning, you.firstName);
 
 // Add the properties
+const fragment = document.createDocumentFragment();
+
 for (let i = 0; i < properties.length; i++) {
-    const card = document.createElement('div')
-    card.classList.add('card')
-    card.innerHTML = properties[i].title
-    const image = document.createElement('img')
-    image.setAttribute('src', properties[i].image)
-    card.appendChild(image)
-    showDetails(you.permissions, card, properties[i].price)
-    propertyContainer.appendChild(card)
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const title = properties[i]?.title || 'Default Title';
+    const imageSrc = properties[i]?.image || 'default-image.jpg';
+    const price = properties[i]?.price || 0;
+
+    const titleElement = document.createElement('h2');
+    titleElement.textContent = title;
+    card.appendChild(titleElement);
+
+    const image = document.createElement('img');
+    image.setAttribute('src', imageSrc);
+    card.appendChild(image);
+
+    const hasPermissions = you.permissions ? true : false; // Adjust logic based on your permissions structure
+    showDetails(hasPermissions, card, price);
+
+    fragment.appendChild(card);
 }
 
-let count = 0
-function addReviews(array : Review[]) : void {
-    if (!count ) {
-        count++
-        const topTwo = getTopTwoReviews(array)
+propertyContainer.appendChild(fragment);
+
+
+let count = 0;
+function addReviews(array: Review[]): void {
+    if (!count) {
+        count++;
+        const topTwo = getTopTwoReviews(array);
         for (let i = 0; i < topTwo.length; i++) {
-            const card = document.createElement('div')
-            card.classList.add('review-card')
-            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name
-            reviewContainer.appendChild(card)
+            const card = document.createElement('div');
+            card.classList.add('review-card');
+            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
+            reviewContainer.appendChild(card);
         }
-        container.removeChild(button) 
+        container.removeChild(button);
     }
 }
 
-button.addEventListener('click', () => addReviews(reviews))
+button.addEventListener('click', () => addReviews(reviews));
 
-let currentLocation : [string, string, number] = ['London', '11.03', 17]
-footer.innerHTML = currentLocation[0] + ' ' + currentLocation[1] + ' ' + currentLocation[2] + '°'
-
+let currentLocation: [string, string, number] = ['London', '11.03', 17];
+footer.innerHTML = `${currentLocation.join(' ')}°`;
 
 let yourMainProperty = new MainProperty(
     'images/italian-property.jpg', 
@@ -148,9 +165,10 @@ let yourMainProperty = new MainProperty(
         stars: 5,
         loyaltyUser: LoyaltyUser.GOLD_USER,
         date: '12-04-2021'
-    }] )
+    }]
+);
 
-const mainImageContainer = document.querySelector('.main-image')
-const image = document.createElement('img')
-image.setAttribute('src', yourMainProperty.src)
-mainImageContainer.appendChild(image)
+const mainImageContainer = document.querySelector('.main-image') as HTMLElement;
+const image = document.createElement('img');
+image.setAttribute('src', yourMainProperty.src);
+mainImageContainer.appendChild(image);
