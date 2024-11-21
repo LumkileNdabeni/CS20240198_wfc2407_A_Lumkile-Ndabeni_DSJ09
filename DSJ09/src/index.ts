@@ -53,7 +53,7 @@ const you = {
 // Array of Properties
 const properties: Property[] = [
     {
-        image: '../assets/images/colombia-property.jpg',
+        image: '/images/colombia-property.jpg',
         title: 'Colombian Shack',
         price: 45,
         location: {
@@ -66,7 +66,7 @@ const properties: Property[] = [
         isAvailable: true  
     },
     {
-        image: '../assets/images/poland-property.jpg',
+        image: '/images/poland-property.jpg',
         title: 'Polish Cottage',
         price: 30,
         location: {
@@ -79,7 +79,7 @@ const properties: Property[] = [
         isAvailable: false 
     },
     {
-        image: '../assets/images/london-property.jpg',
+        image: '/images/london-property.jpg',
         title: 'London Flat',
         price: 25,
         location: {
@@ -92,7 +92,7 @@ const properties: Property[] = [
         isAvailable: true
     },
     {
-        image: '../assets/images/malaysian-hotel.jpeg',
+        image: '/images/malaysian-hotel.jpeg',
         title: 'Malia Hotel',
         price: 35,
         location: {
@@ -159,7 +159,7 @@ let currentLocation: [string, string, number] = ['London', '11.03', 17];
 footer.innerHTML = `${currentLocation.join(' ')}°`;
 
 let yourMainProperty = new MainProperty(
-    'images/italian-property.jpg', 
+    '/images/italian-property.jpg', 
     'Italian House',
     [{
         name: 'Olive',
