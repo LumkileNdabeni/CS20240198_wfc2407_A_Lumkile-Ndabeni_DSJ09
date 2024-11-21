@@ -9,6 +9,7 @@ import { showReviewTotal, populateUser, showDetails, getTopTwoReviews, makeMulti
 import { Permissions, LoyaltyUser } from './enums';
 import { Review, Property } from './interfaces';
 import MainProperty from './classes';
+import './index.css';
 
 const propertyContainer = document.querySelector('.properties') as HTMLElement;
 const reviewContainer = document.querySelector('.reviews') as HTMLElement;
