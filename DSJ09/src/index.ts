@@ -139,27 +139,36 @@ propertyContainer.appendChild(fragment);
 
 
 let count = 0;
-function addReviews(array: Review[]): void {
-    if (!count) {
-        count++;
-        const topTwo = getTopTwoReviews(array);
-        for (let i = 0; i < topTwo.length; i++) {
-            const card = document.createElement('div');
-            card.classList.add('review-card');
-            card.innerHTML = topTwo[i].stars + ' stars from ' + topTwo[i].name;
-            reviewContainer.appendChild(card);
-        }
-        container.removeChild(button);
-    }
-}
 
-button.addEventListener('click', () => addReviews(reviews));
+if (button) {
+    button.addEventListener('click', () => {
+        if (!count) {
+            count++; // Ensure reviews are added only once
+            if (!reviewContainer) {
+                console.error('Review container element not found');
+                return;
+            }
+
+            const topTwo = getTopTwoReviews(reviews);
+            topTwo.forEach(review => {
+                const card = document.createElement('div');
+                card.classList.add('review-card');
+                card.innerHTML = `${review.stars} stars from ${review.name}`;
+                reviewContainer.appendChild(card);
+            });
+
+            button.style.display = 'none'; // Hide the button after reviews are added
+        }
+    });
+} else {
+    console.error('Button element not found');
+}
 
 let currentLocation: [string, string, number] = ['London', '11.03', 17];
 footer.innerHTML = `${currentLocation.join(' ')}°`;
 
 let yourMainProperty = new MainProperty(
-    '/images/italian-property.jpg', 
+    '/images/italian-property.jpg',
     'Italian House',
     [{
         name: 'Olive',
